@@ -30,6 +30,10 @@ public class Employers {
 		this.password = password;
 		this.companyname = companyname;
 	}
+
+	public Employers() {
+	}
+
 	@Override
 	public String toString() {
 		return "Employers [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
