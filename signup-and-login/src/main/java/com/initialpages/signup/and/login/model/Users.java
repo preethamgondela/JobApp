@@ -15,12 +15,13 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Users {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 	private String name;
 	private String email;
 	private String password;
 	private String jobtitle;
+	
 	public int getId() {
 		return id;
 	}

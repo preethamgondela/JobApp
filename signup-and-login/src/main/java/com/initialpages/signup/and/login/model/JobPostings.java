@@ -37,11 +37,11 @@ public class JobPostings {
 	}
 
 
-	public JobPostings(int id, String title, String decription, String location) {
+	public JobPostings(int id, String title, String description, String location) {
 		super();
 		this.id = id;
 		this.title = title;
-		this.description = decription;
+		this.description = description;
 		this.location = location;
 	}
 	
@@ -67,10 +67,10 @@ public class JobPostings {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public String getDecription() {
+	public String getDescription() {
 		return description;
 	}
-	public void setDecription(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 	public String getLocation() {

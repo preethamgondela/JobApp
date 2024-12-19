@@ -20,6 +20,21 @@ public class Employers {
 	private String email;
 	private String password;
 	private String companyname;
+	
+	
+	public Employers(int id, String name, String email, String password, String companyname) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.companyname = companyname;
+	}
+	@Override
+	public String toString() {
+		return "Employers [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password
+				+ ", companyname=" + companyname + "]";
+	}
 	public int getId() {
 		return id;
 	}
