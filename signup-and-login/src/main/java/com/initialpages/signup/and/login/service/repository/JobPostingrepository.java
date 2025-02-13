@@ -9,4 +9,7 @@ import com.initialpages.signup.and.login.model.JobPostings;
 
 @Repository
 public interface JobPostingrepository extends JpaRepository<JobPostings, Long>{
+    List<JobPostings> findByEmployerEmail(String employerEmail); // Fetch jobs by employer's email
+
 }
+

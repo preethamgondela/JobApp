@@ -22,18 +22,18 @@ public class JobPostings {
 	private String title;
 	private String description;
 	private String location;
-	@ManyToOne
-	@JoinColumn(name = "employer_id")
-	private Employers employerId;
+	
+	private String employerEmail;
 	
 	
-	public Employers getEmployerId() {
-		return employerId;
+
+	public String getEmployerEmail() {
+		return employerEmail;
 	}
 
 
-	public void setEmployerId(Employers employerId) {
-		this.employerId = employerId;
+	public void setEmployerEmail(String employerEmail) {
+		this.employerEmail = employerEmail;
 	}
 
 
@@ -49,7 +49,7 @@ public class JobPostings {
 	@Override
 	public String toString() {
 		return "JobPostings [id=" + id + ", title=" + title + ", description=" + description + ", location=" + location
-				+ ", employerId=" + employerId + "]";
+				+ ", employerEmail=" + employerEmail + "]";
 	}
 	public JobPostings() {
 

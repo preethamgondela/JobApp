@@ -1,6 +1,10 @@
 package com.initialpages.signup.and.login.controller;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +22,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.initialpages.signup.and.login.model.Employers;
 import com.initialpages.signup.and.login.model.LoginRequest;
+import com.initialpages.signup.and.login.model.Organization;
 import com.initialpages.signup.and.login.model.Role;
 import com.initialpages.signup.and.login.model.Users;
 import com.initialpages.signup.and.login.service.Employerservice;
 import com.initialpages.signup.and.login.service.Userservice;
 import com.initialpages.signup.and.login.service.repository.Employerrepository;
+import com.initialpages.signup.and.login.service.repository.Organizationrepository;
 import com.initialpages.signup.and.login.service.repository.Userrepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,6 +41,9 @@ public class Inicontroller {
 	Userrepository rep;
 	@Autowired
 	Employerrepository rep1;
+	
+	@Autowired
+	Organizationrepository organizationRepository;
 	
 	@Autowired
 	Userservice service;
@@ -51,10 +60,30 @@ public class Inicontroller {
 	}
 	
 	@CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
+	@PostMapping("/check-email")
+	public ResponseEntity<Map<String, Object>> checkEmail(@RequestBody Map<String, Object> emp) {
+		String employerDomain = ((String) emp.get("email"));
+		employerDomain=employerDomain.split("@")[1];
+        Organization existingOrganization = organizationRepository.findByOrganizationDomain(employerDomain);
+        Map<String, Object> response = new HashMap<>();
+	    // Check if the email exists in the employer database
+	    if(existingOrganization!=null) {
+	    	System.out.println(employerDomain);
+	    	response.put("emailExists", true);
+	    	}
+	    else response.put("emailExists", false);
+
+	    return ResponseEntity.ok(response);
+	}
+	
+	@CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
 	@PostMapping("/employers")
-    public ResponseEntity<Employers> submitForm(@RequestBody Employers emp) {
-        Employers emp1 = service.submitForme(emp);
-        return ResponseEntity.ok(emp1);
+    public String submitForm(@RequestBody Map<String, Object> emp) {
+//		emp.setEntryDate(LocalDateTime.now());
+//    	emp.setUpdateDate(LocalDateTime.now());
+		
+        eservice.submitForme(emp);
+        return "Registration successfull";
     }
 	
 	@GetMapping("/users")
@@ -65,18 +94,13 @@ public class Inicontroller {
 
 	@PostMapping("/users")
     public ResponseEntity<Users> submitForm(@RequestBody Users user) {
+    	user.setEntryDate(LocalDateTime.now());
+    	user.setUpdateDate(LocalDateTime.now());
         Users user1 = service.submitForm(user);
-        System.out.println(user1.getJobtitle());
+//        System.out.println(user1.getJobtitle());
         return ResponseEntity.ok(user1);
     }
     
-//    @CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
-//    @PostMapping("/logine")
-//    public ResponseEntity<String> logine(@RequestBody LoginRequest loginRequest) {
-////        boolean isAuthenticated = service.authenticateUser(loginRequest.getEmail(), loginRequest.getPassword());
-//        
-//        
-//    }
     
     @CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
     @PostMapping("/login")
@@ -97,7 +121,11 @@ public class Inicontroller {
         	Employers emp = rep1.findByEmail(loginRequest.getEmail());
             if (emp.getPassword().equals(loginRequest.getPassword())) {
             	session.setAttribute("employerEmail", loginRequest.getEmail());
-                return ResponseEntity.ok("Login successful");
+        		String employermail = (String) session.getAttribute("employerEmail");
+            	System.out.println("Employer email from session: " + employermail);
+            	System.out.println("Employer sessionid is: " + session.getId());
+        	    
+        		return ResponseEntity.ok("Login successful");
             } else {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
             }
