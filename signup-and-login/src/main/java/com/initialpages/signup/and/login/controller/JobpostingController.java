@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,18 +41,17 @@ public class JobpostingController {
 	
 	@CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
 	@GetMapping("/postings")
-	public ResponseEntity<List<JobPostings>> getJobs(){
-		ser.getJobs();
-		return null;	
-	}
+	public ResponseEntity<List<JobPostings>> getJobsForEmployer() {
+        List<JobPostings> jobs = ser.getJobsForEmployer();
+        return ResponseEntity.ok(jobs);
+    }
 	
 	@CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
 	@PostMapping("/postings")
-	public JobPostings postDetails(@RequestBody JobPostings job) {
-		job.setEntryDate(LocalDateTime.now());
-		job.setUpdateDate(LocalDateTime.now());
-		return ser.postDetails(job);
-	 }
+	public ResponseEntity<JobPostings> postJob(@RequestBody JobPostings jobPosting) {
+        JobPostings savedJob = ser.postJob(jobPosting);
+        return ResponseEntity.ok(savedJob);
+    }
 
 	
 }

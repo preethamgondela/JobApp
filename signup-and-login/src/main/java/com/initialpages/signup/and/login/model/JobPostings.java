@@ -29,11 +29,11 @@ public class JobPostings {
     private String applicationDeadline;
     
     @ManyToOne
-    @JoinColumn(name = "organization_domain")
+    @JoinColumn(name = "OrganizationID")
     private Organization organization;
 
     @ManyToOne
-    @JoinColumn(name = "employer_user_id")
+    @JoinColumn(name = "EmployerUserID")
     private Employers employer;
 
     private String postResponseEmail;

@@ -35,12 +35,12 @@ public class SecurityConfig{
     				auth.requestMatchers("/api/users").permitAll();
     				auth.requestMatchers("/api/employers").permitAll();
     				//auth.requestMatchers("/api/login").permitAll();
-    				//auth.requestMatchers("/api/logine").permitAll();
+    				//auth.requestMatchers("/api/postings").permitAll();
     				//auth.requestMatchers("/api/logout").permitAll();
     				auth.anyRequest().authenticated();  
     			})
-    			.formLogin().disable()  // Disable default form login provided by Spring Security
-                .httpBasic().disable(); // Optional: Disable HTTP Basic Authentication if not needed
+    			//.formLogin()  // Disable default form login provided by Spring Security
+                .httpBasic(); // Optional: Disable HTTP Basic Authentication if not needed
           		
         
         return http.build();  // Return the configured HttpSecurity

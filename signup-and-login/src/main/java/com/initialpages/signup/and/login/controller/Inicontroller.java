@@ -147,26 +147,26 @@ public class Inicontroller {
     }
     
     
-	 	@Autowired
-	    private AuthenticationManager authenticationManager;
-
-	 	@CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
-	    @PostMapping("/login")
-	    public String login(@RequestBody LoginRequest logg) {
-	        // Create the authentication token
-	        UsernamePasswordAuthenticationToken authenticationToken =
-	                new UsernamePasswordAuthenticationToken(logg.getEmail(), logg.getPassword());
-
-	        // Authenticate the user using the AuthenticationManager
-	        Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
-	        // Set the authentication in the SecurityContext
-	        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-	        // Return a success message or token (e.g., JWT token if using JWT)
-	        String s = logg.getEmail();
-	        return "Login successful! "+s;
-	    }
+//	 	@Autowired
+//	    private AuthenticationManager authenticationManager;
+//
+//	 	@CrossOrigin(origins = "http://localhost:3000")  // Allow CORS for this method
+//	    @PostMapping("/login")
+//	    public String login(@RequestBody LoginRequest logg) {
+//	        // Create the authentication token
+//	        UsernamePasswordAuthenticationToken authenticationToken =
+//	                new UsernamePasswordAuthenticationToken(logg.getEmail(), logg.getPassword());
+//
+//	        // Authenticate the user using the AuthenticationManager
+//	        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+//
+//	        // Set the authentication in the SecurityContext
+//	        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//	        // Return a success message or token (e.g., JWT token if using JWT)
+//	        String s = logg.getEmail();
+//	        return "Login successful! "+s;
+//	    }
 
 //	    @PostMapping("/logout")
 //	    public String logout() {
