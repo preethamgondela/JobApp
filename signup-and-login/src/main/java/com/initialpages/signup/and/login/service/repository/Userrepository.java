@@ -9,6 +9,5 @@ import com.initialpages.signup.and.login.model.Users;
 @Repository
 public interface Userrepository extends JpaRepository<Users, Long>{
 //	Users findByUsername(String name); 
-	Users findByEmail(String emailAddress);
-
+	Users findByEmail(String email); 
 }

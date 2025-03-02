@@ -57,9 +57,40 @@ public class Users {
 
     @Column(name = "Update_User")
     private String updateUser;
+    
+    private String Role;
 
+    
+    public Users(Long applicantID, String firstName, String lastName, String middleInitial, String email,
+			String password, String mobileNumber, String experienceLevel, String jobPreference, String education,
+			LocalDateTime entryDate, String entryUser, LocalDateTime updateDate, String updateUser, String role) {
+		super();
+		this.applicantID = applicantID;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.middleInitial = middleInitial;
+		this.email = email;
+		this.password = password;
+		this.mobileNumber = mobileNumber;
+		this.experienceLevel = experienceLevel;
+		this.jobPreference = jobPreference;
+		this.education = education;
+		this.entryDate = entryDate;
+		this.entryUser = entryUser;
+		this.updateDate = updateDate;
+		this.updateUser = updateUser;
+		Role = role;
+	}
 
-    // Getters and Setters for all fields
+	public String getRole() {
+		return Role;
+	}
+
+	public void setRole(String role) {
+		Role = role;
+	}
+
+	// Getters and Setters for all fields
     public Long getApplicantID() {
         return applicantID;
     }
@@ -178,7 +209,7 @@ public class Users {
 				+ ", middleInitial=" + middleInitial + ", email=" + email + ", password=" + password + ", mobileNumber="
 				+ mobileNumber + ", experienceLevel=" + experienceLevel + ", jobPreference=" + jobPreference
 				+ ", education=" + education + ", entryDate=" + entryDate + ", entryUser=" + entryUser + ", updateDate="
-				+ updateDate + ", updateUser=" + updateUser + "]";
+				+ updateDate + ", updateUser=" + updateUser + ", Role=" + Role + "]";
 	}
 
 	public Users() {
@@ -186,24 +217,6 @@ public class Users {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Users(Long applicantID, String firstName, String lastName, String middleInitial, String email,
-			String password, String mobileNumber, String experienceLevel, String jobPreference, String education,
-			LocalDateTime entryDate, String entryUser, LocalDateTime updateDate, String updateUser) {
-		super();
-		this.applicantID = applicantID;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.middleInitial = middleInitial;
-		this.email = email;
-		this.password = password;
-		this.mobileNumber = mobileNumber;
-		this.experienceLevel = experienceLevel;
-		this.jobPreference = jobPreference;
-		this.education = education;
-		this.entryDate = entryDate;
-		this.entryUser = entryUser;
-		this.updateDate = updateDate;
-		this.updateUser = updateUser;
-	}
+	
     
 }

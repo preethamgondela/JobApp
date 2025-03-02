@@ -4,12 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.initialpages.signup.and.login.model.Employers;
 import com.initialpages.signup.and.login.model.Organization;
+import com.initialpages.signup.and.login.model.Use;
 import com.initialpages.signup.and.login.service.repository.Employerrepository;
 import com.initialpages.signup.and.login.service.repository.Organizationrepository;
+import com.initialpages.signup.and.login.service.repository.Userepository;
 import com.initialpages.signup.and.login.util.EmailService;
 
 import jakarta.mail.MessagingException;
@@ -24,7 +27,13 @@ public class Employerservice {
 	Organizationrepository organizationRepository;
 	
 	@Autowired
+	Userepository rr;
+	
+	@Autowired
 	EmailService emailService;
+	
+	@Autowired
+	BCryptPasswordEncoder pass;
 	
 	public List<Employers> getEmployers() {
 		
@@ -47,14 +56,20 @@ public class Employerservice {
         
         if (existingOrganization != null) {
         	Employers employer = new Employers();
+        	Use u = new Use();
         	employer.setFirstName(firstName);
             employer.setLastName(lastName);
             employer.setMiddleInitial(middleInitial);
             employer.setEmail(email);
             employer.setMobileNumber(mobileNumber);
-            employer.setPassword(password);
+            employer.setPassword(pass.encode(password));
             employer.setEmployerPosition(employerPosition);
         	employer.setOrganization(existingOrganization);
+        	employer.setRole("ROLE_EMPLOYER");
+        	u.setEmail(email);
+        	u.setPassword(pass.encode(password));
+        	u.setRole("ROLE_EMPLOYER");
+        	rr.save(u);
         	erepo.save(employer);
         	System.out.println("No need organization as it is already present");
         	sendVerificationEmail(employer);
@@ -80,14 +95,20 @@ public class Employerservice {
             organizationRepository.save(newOrganization);
             System.out.println("Need both organization and employer as the domain is new one");
             Employers employer = new Employers();
+            Use u = new Use();
             employer.setFirstName(firstName);
             employer.setLastName(lastName);
             employer.setMiddleInitial(middleInitial);
             employer.setEmail(email);
             employer.setMobileNumber(mobileNumber);
-            employer.setPassword(password);
+            employer.setPassword(pass.encode(password));
             employer.setEmployerPosition(employerPosition);
             employer.setOrganization(newOrganization);
+            employer.setRole("ROLE_EMPLOYER");
+            u.setEmail(email);
+        	u.setPassword(pass.encode(password));
+        	u.setRole("ROLE_EMPLOYER");
+        	rr.save(u);
             erepo.save(employer);
             sendVerificationEmail(employer);
         }

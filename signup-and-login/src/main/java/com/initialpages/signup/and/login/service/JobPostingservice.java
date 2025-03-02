@@ -15,8 +15,7 @@ public class JobPostingservice {
 	@Autowired
 	JobPostingrepository r;
 
-	public List<JobPostings> getJobs() {
-		
+	public List<JobPostings> getJobs() {	
 		return r.findAll();
 	}
 
@@ -24,9 +23,5 @@ public class JobPostingservice {
 		return r.save(job);
 	}
 
-	public Optional<JobPostings> getJobsByEmployer(long id) {
-		// TODO Auto-generated method stub
-		return r.findById(id);
-	}
-
+	
 }

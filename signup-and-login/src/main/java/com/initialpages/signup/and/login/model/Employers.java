@@ -55,10 +55,20 @@ public class Employers {
     @ManyToOne
     @JoinColumn(name = "OrganizationID")
     private Organization organization;
+    
+    private String Role;
 
     
     
-    public Employers(Long employerUserID, String firstName, String lastName, String middleInitial, String email,
+    public String getRole() {
+		return Role;
+	}
+
+	public void setRole(String role) {
+		Role = role;
+	}
+
+	public Employers(Long employerUserID, String firstName, String lastName, String middleInitial, String email,
 			String password, String mobileNumber, String employerPosition, LocalDateTime entryDate, String entryUser,
 			LocalDateTime updateDate, String updateUser, Organization organization) {
 		super();
